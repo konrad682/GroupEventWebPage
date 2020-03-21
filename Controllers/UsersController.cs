@@ -4,6 +4,14 @@ using GruopEventPage.Services;
 using GruopEventPage.Models;
 using GruopEventPage.Entities;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using GruopEventPage.Helpers;
+using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+using System;
 
 namespace GruopEventPage.Controllers
 {
@@ -13,10 +21,14 @@ namespace GruopEventPage.Controllers
 	public class UsersController : ControllerBase
 	{
 		private IUserService _userService;
+		private IMapper _mapper;
+		private readonly AppSettings _appSettings;
 
-		public UsersController(IUserService userService)
+		public UsersController(IUserService userService, IMapper mapper, IOptions<AppSettings> appSettings)
 		{
 			_userService = userService;
+			_mapper = mapper;
+			_appSettings = appSettings.Value;
 		}
 
 		[AllowAnonymous]
@@ -29,7 +41,50 @@ namespace GruopEventPage.Controllers
 			{
 				return BadRequest(new { message = "Username or password is incorrect" });
 			}
-			return Ok(user);
+
+			// authentication successful
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+			var tokenDescriptor = new SecurityTokenDescriptor
+			{
+				Subject = new ClaimsIdentity(new Claim[]
+				{
+					new Claim(ClaimTypes.Name, user.UserID.ToString()),
+					new Claim(ClaimTypes.Role, user.Role)
+				}),
+				Expires = DateTime.UtcNow.AddDays(7),
+				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+			};
+
+			var token = tokenHandler.CreateToken(tokenDescriptor);
+			//user.Token = tokenHandler.WriteToken(token);
+			var tokenString = tokenHandler.WriteToken(token);
+
+			return Ok(new
+			{
+				Id = user.UserID,
+				Username = user.Username,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Token = tokenString
+			});
+		}
+
+		[AllowAnonymous]
+		[HttpPost("register")]
+		public IActionResult Register([FromBody]RegisterModel model)
+		{
+			var user = _mapper.Map<User>(model);
+
+			try
+			{
+				_userService.Create(user, model.Password);
+				return Ok();
+			}
+			catch(AppException ex)
+			{
+				return BadRequest(new { meessage = ex.Message });
+			}
 		}
 
 		[Authorize(Roles = Role.Admin)]
@@ -37,7 +92,8 @@ namespace GruopEventPage.Controllers
 		public async Task<IActionResult> GetAll()
 		{
 			var users = await _userService.GetAll();
-			return Ok(users);
+			var model = _mapper.Map<IList<UserModel>>(users);
+			return Ok(model);
 		}
 
 		[HttpGet("{id}")]
