@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using GruopEventPage.Services;
 using GruopEventPage.Models;
 using GruopEventPage.Entities;
@@ -12,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using System;
+using System.Collections.Generic;
 
 namespace GruopEventPage.Controllers
 {
@@ -33,14 +33,16 @@ namespace GruopEventPage.Controllers
 
 		[AllowAnonymous]
 		[HttpPost("authenticate")]
-		public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
+		public IActionResult Authenticate([FromBody]AuthenticateModel model)
 		{
-			var user = await _userService.Authenticate(model.Username, model.Password);
+			var user = _userService.Authenticate(model.Username, model.Password);
 
 			if (user == null)
 			{
 				return BadRequest(new { message = "Username or password is incorrect" });
 			}
+
+			user.Role = Role.User;
 
 			// authentication successful
 			var tokenHandler = new JwtSecurityTokenHandler();
@@ -57,7 +59,6 @@ namespace GruopEventPage.Controllers
 			};
 
 			var token = tokenHandler.CreateToken(tokenDescriptor);
-			//user.Token = tokenHandler.WriteToken(token);
 			var tokenString = tokenHandler.WriteToken(token);
 
 			return Ok(new
@@ -87,11 +88,10 @@ namespace GruopEventPage.Controllers
 			}
 		}
 
-		[Authorize(Roles = Role.Admin)]
 		[HttpGet]
-		public async Task<IActionResult> GetAll()
+		public IActionResult GetAll()
 		{
-			var users = await _userService.GetAll();
+			var users = _userService.GetAll();
 			var model = _mapper.Map<IList<UserModel>>(users);
 			return Ok(model);
 		}
@@ -99,15 +99,36 @@ namespace GruopEventPage.Controllers
 		[HttpGet("{id}")]
 		public IActionResult GetById(int id)
 		{
-			var currentUserID = int.Parse(User.Identity.Name);
-			if (id != currentUserID && !User.IsInRole(Role.Admin))
-				return Forbid();
-
 			var user = _userService.GetById(id);
+			var model = _mapper.Map<UserModel>(user);
+			return Ok(model);
+		}
 
-			if (user == null) return NotFound();
+		[HttpPut("{id}")]
+		public IActionResult Update(int id, [FromBody]UpdateModel model)
+		{
+			// map model to entity and set id
+			var user = _mapper.Map<User>(model);
+			user.UserID = id;
 
-			return Ok(user);
+			try
+			{
+				// update user 
+				_userService.Update(user, model.Password);
+				return Ok();
+			}
+			catch (AppException ex)
+			{
+				// return error message if there was an exception
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+
+		[HttpDelete("{id}")]
+		public IActionResult Delete(int id)
+		{
+			_userService.Delete(id);
+			return Ok();
 		}
 	}
 }

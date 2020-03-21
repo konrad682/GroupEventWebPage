@@ -1,15 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GruopEventPage.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace GruopEventPage.Helpers
 {
-	public class SqliteDataContext : DataContext
+	public class DataContext : DbContext
 	{
-		public SqliteDataContext(IConfiguration configuration) : base(configuration) { }
+		protected readonly IConfiguration Configuration;
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public DataContext(IConfiguration configuration)
 		{
-			optionsBuilder.UseSqlite(Configuration.GetConnectionString("WebApiDatabase"));
+			Configuration = configuration;
 		}
+
+		protected override void OnConfiguring(DbContextOptionsBuilder options)
+		{
+			// connect to sqlite database
+			options.UseSqlite(Configuration.GetConnectionString("WebApiDatabase"));
+		}
+
+		public DbSet<User> Users { get; set; }
 	}
 }

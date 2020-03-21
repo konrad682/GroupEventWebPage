@@ -17,7 +17,7 @@ namespace GruopEventPage.Helpers
 		{
 			if (user == null) return null;
 
-			user.Password = null;
+			//user.Password = null;
 			return user;
 		}
 	}

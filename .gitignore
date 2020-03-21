@@ -1,6 +1,7 @@
 *.swp
 *.*~
 project.lock.json
+LocalDatabase.dll
 .DS_Store
 *.pyc
 
