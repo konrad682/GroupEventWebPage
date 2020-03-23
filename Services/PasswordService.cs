@@ -2,7 +2,7 @@
 
 namespace GruopEventPage.Services
 {
-	public static class PasswordService
+	internal static class PasswordService
 	{
 		internal static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
 		{
