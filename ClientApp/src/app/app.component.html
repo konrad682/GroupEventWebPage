@@ -1,0 +1,33 @@
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <img routerLink="/home" src="../assets/images/logo.png" alt="login" width="50" height="50">
+    <span class="navbar-text text-white h4">
+        Event Manager
+      </span>
+    <div class="navbar-nav ml-auto " *ngIf="currentUser">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/" (click)="logout()">Logout</a>
+    </div>
+    <div class="navbar-nav ml-auto" *ngIf="!currentUser">
+        <a class="nav-item nav-link" routerLink="/login">Login</a>
+        <a class="nav-item nav-link" routerLink="/register">Register</a>
+    </div>
+</nav>
+
+<!-- main content container -->
+<div class="jumbotron mb-0 mt-0" style="height: 800px;">
+    <div class="row mb-5"></div>
+    <alert></alert>
+    <router-outlet></router-outlet>
+    <div class="row mb-3"></div>
+</div>
+
+<div class="fixed-bottom">
+    <nav class="navbar-nav navbar-dark bg-dark">
+        <span class="text-white text-center h3">
+            <img routerLink="/home" src="../assets/images/logo.png" alt="login" width="30" height="30">
+         Konrad Wędzicha - Event Manager
+        </span>
+    </nav>
+</div>
+
