@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GruopEventPage.Entities;
 using GruopEventPage.Models;
+using GruopEventPage.Models.EventForms;
 
 namespace GruopEventPage.Helpers
 {
@@ -10,6 +11,7 @@ namespace GruopEventPage.Helpers
 		{
 			CreateMap<User, UserModel>();
 			CreateMap<RegisterModel, User>();
+			CreateMap<EventFormModel, EventForm>();
 			CreateMap<UpdateModel, User>();
 		}
 	}

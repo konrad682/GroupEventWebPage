@@ -6,3 +6,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./authentication.service"));
 __export(require("./user.service"));
 __export(require("./alert.service"));
+__export(require("./formEvent.service"));

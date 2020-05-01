@@ -16,6 +16,7 @@ var app_component_1 = require("./app.component");
 var home_1 = require("./home");
 var homePage_1 = require("./homePage");
 var eventListPageFootball_1 = require("./eventListPageFootball");
+var formEvent_1 = require("./formEvent");
 var login_1 = require("./login");
 var register_1 = require("./register");
 var _components_1 = require("./_components");
@@ -37,6 +38,7 @@ var AppModule = /** @class */ (function () {
                 register_1.RegisterComponent,
                 _components_1.AlertComponent,
                 homePage_1.HomePageComponent,
+                formEvent_1.FormEventComponent,
                 eventListPageFootball_1.EventListPageFootballComponent
             ],
             providers: [

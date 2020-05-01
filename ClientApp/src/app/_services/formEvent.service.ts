@@ -6,14 +6,14 @@ export class FormEventService {
     constructor(private http: HttpClient) { }
 
     getAllForms() {
-        return this.http.get<any[]>(`${config.apiUrl}/forms`);
+        return this.http.get<any[]>(`${config.apiUrl}/formEvent`);
     }
 
     createForm(form) {
-        return this.http.post(`${config.apiUrl}/forms/create`, form);
+        return this.http.post(`${config.apiUrl}/formEvent/createEventForm`, form);
     }
 
     deleteForm(id) {
-        return this.http.delete(`${config.apiUrl}/forms/${id}`);
+        return this.http.delete(`${config.apiUrl}/formEvent/${id}`);
     }
 }

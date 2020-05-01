@@ -10,65 +10,69 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var _services_1 = require("../_services");
 var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
+var common_1 = require("@angular/common");
 var operators_1 = require("rxjs/operators");
-var _services_1 = require("../_services");
-var RegisterComponent = /** @class */ (function () {
-    function RegisterComponent(formBuilder, router, authenticationService, userService, alertService) {
+var FormEventComponent = /** @class */ (function () {
+    function FormEventComponent(formBuilder, router, authenticationService, formEventService, alertService, _location) {
         this.formBuilder = formBuilder;
         this.router = router;
         this.authenticationService = authenticationService;
-        this.userService = userService;
+        this.formEventService = formEventService;
         this.alertService = alertService;
+        this._location = _location;
+        this.users = [];
         this.loading = false;
         this.submitted = false;
-        // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
-        }
     }
-    RegisterComponent.prototype.ngOnInit = function () {
-        this.registerForm = this.formBuilder.group({
-            firstName: ['', forms_1.Validators.required],
-            lastName: ['', forms_1.Validators.required],
-            username: ['', forms_1.Validators.required],
-            password: ['', [forms_1.Validators.required, forms_1.Validators.minLength(6)]]
+    FormEventComponent.prototype.ngOnInit = function () {
+        this.eventForm = this.formBuilder.group({
+            nameEvent: ['', forms_1.Validators.required],
+            dateEvent: ['', forms_1.Validators.required],
+            pleaceEvent: ['', forms_1.Validators.required],
+            descEvent: ['', forms_1.Validators.required],
+            kindEvent: ['football'],
+            organizer: [this.authenticationService.currentUserValue.username]
         });
     };
-    Object.defineProperty(RegisterComponent.prototype, "f", {
-        // convenience getter for easy access to form fields
-        get: function () { return this.registerForm.controls; },
+    Object.defineProperty(FormEventComponent.prototype, "f", {
+        get: function () { return this.eventForm.controls; },
         enumerable: true,
         configurable: true
     });
-    RegisterComponent.prototype.onSubmit = function () {
+    FormEventComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
         // reset alerts on submit
         this.alertService.clear();
         // stop here if form is invalid
-        if (this.registerForm.invalid) {
+        if (this.eventForm.invalid) {
             return;
         }
         this.loading = true;
-        this.userService.register(this.registerForm.value)
+        this.formEventService.createForm(this.eventForm.value)
             .pipe(operators_1.first())
             .subscribe(function (data) {
-            _this.router.navigate(['/login'], { queryParams: { registered: true } });
+            _this._location.back();
         }, function (error) {
             _this.alertService.error(error);
             _this.loading = false;
         });
     };
-    RegisterComponent = __decorate([
-        core_1.Component({ templateUrl: 'register.component.html' }),
+    FormEventComponent.prototype.cancel = function () {
+        this._location.back();
+    };
+    FormEventComponent = __decorate([
+        core_1.Component({ templateUrl: 'formEvent.component.html' }),
         __metadata("design:paramtypes", [forms_1.FormBuilder,
             router_1.Router,
             _services_1.AuthenticationService,
-            _services_1.UserService,
-            _services_1.AlertService])
-    ], RegisterComponent);
-    return RegisterComponent;
+            _services_1.FormEventService,
+            _services_1.AlertService,
+            common_1.Location])
+    ], FormEventComponent);
+    return FormEventComponent;
 }());
-exports.RegisterComponent = RegisterComponent;
+exports.FormEventComponent = FormEventComponent;
