@@ -38,7 +38,7 @@ var FormEventComponent = /** @class */ (function () {
             placeEvent: ['', forms_1.Validators.required],
             descEvent: ['', forms_1.Validators.required],
             timeEvent: ['', forms_1.Validators.required],
-            numberPlaces: ['', forms_1.Validators.required],
+            numberPlacesEvent: ['', forms_1.Validators.required],
             kindEvent: [this.kindEvent],
             organizer: [this.authenticationService.currentUserValue.username]
         });
