@@ -13,7 +13,7 @@ var routes = [
     { path: 'home', component: home_1.HomeComponent, canActivate: [_helpers_1.AuthGuard] },
     { path: 'login', component: login_1.LoginComponent },
     { path: 'register', component: register_1.RegisterComponent },
-    { path: 'formEvent', component: formEvent_1.FormEventComponent, canActivate: [_helpers_1.AuthGuard] },
+    { path: 'formEvent/:kindEvent', component: formEvent_1.FormEventComponent, canActivate: [_helpers_1.AuthGuard] },
     { path: 'football', component: eventListPageFootball_1.EventListPageFootballComponent, canActivate: [_helpers_1.AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

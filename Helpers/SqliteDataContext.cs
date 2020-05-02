@@ -20,5 +20,6 @@ namespace GruopEventPage.Helpers
 		}
 
 		public DbSet<User> Users { get; set; }
+		public DbSet<EventForm> EventFormFootball { get; set; }
 	}
 }

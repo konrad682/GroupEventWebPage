@@ -12,7 +12,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'formEvent', component: FormEventComponent, canActivate: [AuthGuard] },
+    { path: 'formEvent/:kindEvent', component: FormEventComponent, canActivate: [AuthGuard] },
     { path: 'football', component: EventListPageFootballComponent, canActivate: [AuthGuard] },
 
     // otherwise redirect to home

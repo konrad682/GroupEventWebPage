@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { first } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({ templateUrl: 'formEvent.component.html' })
 export class FormEventComponent implements OnInit {
@@ -12,10 +14,12 @@ export class FormEventComponent implements OnInit {
     loading = false;
     submitted = false;
     error: string;
+    kindEvent: string;
+    private sub: any;
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router,
+        private route: ActivatedRoute,
         private authenticationService: AuthenticationService,
         private formEventService: FormEventService,
         private alertService: AlertService,
@@ -25,15 +29,25 @@ export class FormEventComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.sub = this.route.params.subscribe(params => {
+            this.kindEvent = params['kindEvent']; 
+         });
+
         this.eventForm = this.formBuilder.group({
             nameEvent: ['', Validators.required],
             dateEvent: ['', Validators.required],
-            pleaceEvent: ['', Validators.required],
+            placeEvent: ['', Validators.required],
             descEvent: ['', Validators.required],
-            kindEvent: ['football'],
+            timeEvent: ['', Validators.required],
+            numberPlacesEvent: ['', Validators.required],
+            kindEvent: [this.kindEvent],
             organizer: [this.authenticationService.currentUserValue.username]
         });
     }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+      }
 
     get f() { return this.eventForm.controls; }
 

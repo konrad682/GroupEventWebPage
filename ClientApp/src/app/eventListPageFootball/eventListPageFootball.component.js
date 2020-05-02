@@ -11,17 +11,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var _services_1 = require("../_services");
+var operators_1 = require("rxjs/operators");
+var router_1 = require("@angular/router");
 var EventListPageFootballComponent = /** @class */ (function () {
-    function EventListPageFootballComponent(authenticationService) {
+    function EventListPageFootballComponent(authenticationService, formEventService, router) {
         this.authenticationService = authenticationService;
-        this.users = [];
+        this.formEventService = formEventService;
+        this.router = router;
+        this.formsEvent = [];
         this.currentUser = this.authenticationService.currentUserValue;
     }
     EventListPageFootballComponent.prototype.ngOnInit = function () {
+        this.loadAllFormsEvent();
+    };
+    EventListPageFootballComponent.prototype.loadAllFormsEvent = function () {
+        var _this = this;
+        this.formEventService.getAllForms()
+            .pipe(operators_1.first())
+            .subscribe(function (formsEvent) { return _this.formsEvent = formsEvent; });
+        console.log(this.formsEvent);
+    };
+    EventListPageFootballComponent.prototype.navigateToFormEventPage = function () {
+        this.router.navigate(['/formEvent', 'football']);
     };
     EventListPageFootballComponent = __decorate([
         core_1.Component({ templateUrl: 'eventListPageFootball.component.html' }),
-        __metadata("design:paramtypes", [_services_1.AuthenticationService])
+        __metadata("design:paramtypes", [_services_1.AuthenticationService,
+            _services_1.FormEventService,
+            router_1.Router])
     ], EventListPageFootballComponent);
     return EventListPageFootballComponent;
 }());

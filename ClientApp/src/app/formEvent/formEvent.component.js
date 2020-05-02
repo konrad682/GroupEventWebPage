@@ -11,14 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var _services_1 = require("../_services");
-var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var operators_1 = require("rxjs/operators");
+var router_1 = require("@angular/router");
 var FormEventComponent = /** @class */ (function () {
-    function FormEventComponent(formBuilder, router, authenticationService, formEventService, alertService, _location) {
+    function FormEventComponent(formBuilder, route, authenticationService, formEventService, alertService, _location) {
         this.formBuilder = formBuilder;
-        this.router = router;
+        this.route = route;
         this.authenticationService = authenticationService;
         this.formEventService = formEventService;
         this.alertService = alertService;
@@ -28,14 +28,23 @@ var FormEventComponent = /** @class */ (function () {
         this.submitted = false;
     }
     FormEventComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.kindEvent = params['kindEvent'];
+        });
         this.eventForm = this.formBuilder.group({
             nameEvent: ['', forms_1.Validators.required],
             dateEvent: ['', forms_1.Validators.required],
-            pleaceEvent: ['', forms_1.Validators.required],
+            placeEvent: ['', forms_1.Validators.required],
             descEvent: ['', forms_1.Validators.required],
-            kindEvent: ['football'],
+            timeEvent: ['', forms_1.Validators.required],
+            numberPlaces: ['', forms_1.Validators.required],
+            kindEvent: [this.kindEvent],
             organizer: [this.authenticationService.currentUserValue.username]
         });
+    };
+    FormEventComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
     };
     Object.defineProperty(FormEventComponent.prototype, "f", {
         get: function () { return this.eventForm.controls; },
@@ -67,7 +76,7 @@ var FormEventComponent = /** @class */ (function () {
     FormEventComponent = __decorate([
         core_1.Component({ templateUrl: 'formEvent.component.html' }),
         __metadata("design:paramtypes", [forms_1.FormBuilder,
-            router_1.Router,
+            router_1.ActivatedRoute,
             _services_1.AuthenticationService,
             _services_1.FormEventService,
             _services_1.AlertService,
