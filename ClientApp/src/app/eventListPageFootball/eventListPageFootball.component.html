@@ -17,10 +17,10 @@
                         <div class="card-footer bg-transparent border-primary">
                             <div class="row">
                             <div class="col-sm-8">
-                                <a (click)="formInformation()" class="btn btn-primary">Informacje</a>
+                                <a (click)="formInformation(form.eventID)" class="btn btn-primary">Informacje</a>
                             </div>
                             <div class="col-sm-4">
-                                <p class="card-text ">Ilość miejsc: 0/{{form.numberPlacesEvent}}</p>
+                                <p class="card-text ">Ilość miejsc: {{form.numbersOfCurrentParticipants}}/{{form.numberPlacesEvent}}</p>
                             </div>
                             </div>
                         </div>

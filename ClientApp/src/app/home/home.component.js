@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var operators_1 = require("rxjs/operators");
 var _services_1 = require("../_services");
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(authenticationService, userService) {
@@ -20,19 +19,6 @@ var HomeComponent = /** @class */ (function () {
         this.currentUser = this.authenticationService.currentUserValue;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.loadAllUsers();
-    };
-    // deleteUser(id: number) {
-    //     this.userService.delete(id)
-    //         .pipe(first())
-    //         .subscribe(() => this.loadAllUsers());
-    // }
-    HomeComponent.prototype.loadAllUsers = function () {
-        var _this = this;
-        this.userService.getAll()
-            .pipe(operators_1.first())
-            .subscribe(function (users) { return _this.users = users; });
-        console.log(this.users);
     };
     HomeComponent = __decorate([
         core_1.Component({ templateUrl: 'home.component.html' }),

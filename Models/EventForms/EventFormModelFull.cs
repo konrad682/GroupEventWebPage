@@ -14,6 +14,7 @@ namespace GruopEventPage.Models.EventForms
 		public string descEvent { get; set; }
 		public string organizer { get; set; }
 		public string timeEvent { get; set; }
-		public string numberPlacesEvent { get; set; }
+		public int numberPlacesEvent { get; set; }
+		public int numbersOfCurrentParticipants { get; set; }
 	}
 }

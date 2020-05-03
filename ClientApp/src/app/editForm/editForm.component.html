@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+    <h2>Edytuj wydarzenie</h2>
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="nameEvent">Nazwa wydarzenia</label>
+            <input type="text" formControlName="nameEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nameEvent.errors }" />
+            <div *ngIf="submitted && f.nameEvent.errors" class="invalid-feedback">
+                <div *ngIf="f.nameEvent.errors.required">Event name is required</div>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col">
+        <div class="form-group">
+            <label for="dateEvent">Data wydarzenia</label>
+            <input type="date" formControlName="dateEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dateEvent.errors } " />
+            <div *ngIf="submitted && f.dateEvent.errors" class="invalid-feedback">
+                <div *ngIf="f.dateEvent.errors.required">Date is required</div>
+            </div>
+        </div>
+        </div>
+        <div class="col">
+        <div class="form-group">
+            <label for="dateEvent">Czas wydarzenia</label>
+            <input type="time" formControlName="timeEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.timeEvent.errors }"/>
+            <div *ngIf="submitted && f.timeEvent.errors" class="invalid-feedback">
+                <div *ngIf="f.timeEvent.errors.required">Time is required</div>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col">
+        <div class="form-group">
+            <label for="placeEvent">Miejsce wydarzenia</label>
+            <input type="text" formControlName="placeEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.placeEvent.errors }"/>
+            <div *ngIf="submitted && f.placeEvent.errors" class="invalid-feedback">
+                <div *ngIf="f.placeEvent.errors.required">Place event is required</div>
+            </div>
+        </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="numberPlacesEvent">Ilość miejsc</label>
+                    <input type="number" formControlName="numberPlacesEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.numberPlacesEvent.errors }"/>
+                    <div *ngIf="submitted && f.numberPlacesEvent.errors" class="invalid-feedback">
+                        <div *ngIf="f.numberPlacesEvent.errors.required">It has to be number</div>
+                    </div>
+                </div>
+                    </div>
+        </div>
+        <div class="form-group">
+            <label for="descEvent">Opis wydarzenia</label>
+            <textarea type="text" formControlName="descEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.descEvent.errors }"></textarea>
+            <div *ngIf="submitted && f.descEvent.errors" class="invalid-feedback">
+                <div *ngIf="f.descEvent.errors.required">Description is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Zapisz
+            </button>
+            <a (click)="cancel()" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+    </div>
+    <div class="col-sm-3"></div>
+    </div>
+    

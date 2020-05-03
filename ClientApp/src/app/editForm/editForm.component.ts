@@ -7,14 +7,17 @@ import { first } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
-@Component({ templateUrl: 'formEvent.component.html' })
-export class FormEventComponent implements OnInit {
+@Component({ templateUrl: 'editForm.component.html' })
+export class EditFormComponent implements OnInit {
     eventForm: FormGroup;
     loading = false;
     submitted = false;
     error: string;
     kindEvent: string;
     private sub: any;
+    eventID: number;
+    form: any;
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -24,24 +27,45 @@ export class FormEventComponent implements OnInit {
         private alertService: AlertService,
         private _location: Location
     ) {
-
     }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.kindEvent = params['kindEvent']; 
+            this.eventID = +params['id']; 
          });
 
-        this.eventForm = this.formBuilder.group({
+         this.loadFormEventByID();
+         
+         this.eventForm = this.formBuilder.group({
             nameEvent: ['', Validators.required],
             dateEvent: ['', Validators.required],
             placeEvent: ['', Validators.required],
             descEvent: ['', Validators.required],
             timeEvent: ['', Validators.required],
             numberPlacesEvent: ['', Validators.required],
-            kindEvent: [this.kindEvent],
-            organizer: [this.authenticationService.currentUserValue.username]
         });
+
+        //  this.eventForm.setValue({
+        //     nameEvent: this.form.nameEvent,
+        //     dateEvent: this.form.dateEvent,
+        //     placeEvent: this.form.placeEvent,
+        //     descEvent: this.form.descEvent,
+        //     timeEvent: this.form.timeEvent
+        //   });
+        setTimeout(() => 
+        {
+            this.eventForm.setValue({
+                    nameEvent: this.form.nameEvent,
+                    dateEvent: this.form.dateEvent,
+                    placeEvent: this.form.placeEvent,
+                    descEvent: this.form.descEvent,
+                    timeEvent: this.form.timeEvent,
+                    numberPlacesEvent: this.form.numberPlacesEvent
+                  });
+            
+        },
+        500);
     }
 
     ngOnDestroy() {
@@ -62,7 +86,7 @@ export class FormEventComponent implements OnInit {
         }
 
         this.loading = true;
-        this.formEventService.createForm(this.eventForm.value)
+        this.formEventService.updateForm(this.eventID, this.kindEvent, this.eventForm.value)
             .pipe(first())
             .subscribe(
                 data => {
@@ -72,6 +96,11 @@ export class FormEventComponent implements OnInit {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    private loadFormEventByID() {
+        this.formEventService.getFormEventByID(this.eventID, this.kindEvent)
+            .subscribe((data) => this.form = data);
     }
 
     cancel(){

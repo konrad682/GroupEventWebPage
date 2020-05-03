@@ -13,7 +13,15 @@ export class FormEventService {
         return this.http.post(`${config.apiUrl}/formEvent/createEventForm`, form);
     }
 
-    deleteForm(id) {
-        return this.http.delete(`${config.apiUrl}/formEvent/${id}`);
+    updateForm(id, kindEvent, form) {
+        return this.http.put(`${config.apiUrl}/formEvent/${kindEvent}/${id}`, form);
+    }
+
+    deleteForm(id, kindEvent) {
+        return this.http.delete(`${config.apiUrl}/formEvent/${kindEvent}/${id}`);
+    }
+
+    getFormEventByID(id, kindEvent) {
+        return this.http.get(`${config.apiUrl}/formEvent/${kindEvent}/${id}`);
     }
 }

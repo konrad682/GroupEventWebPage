@@ -31,8 +31,11 @@ namespace GruopEventPage.Migrations.SqliteMigrations
                     b.Property<string>("NameEvent")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("NumberPlacesEvent")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("NumberPlacesEvent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NumbersOfCurrentParticipants")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Organizer")
                         .HasColumnType("TEXT");

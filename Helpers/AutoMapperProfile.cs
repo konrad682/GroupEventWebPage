@@ -14,6 +14,7 @@ namespace GruopEventPage.Helpers
 			CreateMap<EventFormModel, EventForm>();
 			CreateMap<EventForm, EventFormModelFull>();
 			CreateMap<UpdateModel, User>();
+			CreateMap<UpdateFormModel, EventForm>();
 		}
 	}
 }

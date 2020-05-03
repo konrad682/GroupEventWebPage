@@ -34,6 +34,9 @@ var EventListPageFootballComponent = /** @class */ (function () {
     EventListPageFootballComponent.prototype.navigateToFormEventPage = function () {
         this.router.navigate(['/formEvent', 'football']);
     };
+    EventListPageFootballComponent.prototype.formInformation = function (id) {
+        this.router.navigate(['/formInfomation', 'football', id]);
+    };
     EventListPageFootballComponent = __decorate([
         core_1.Component({ templateUrl: 'eventListPageFootball.component.html' }),
         __metadata("design:paramtypes", [_services_1.AuthenticationService,

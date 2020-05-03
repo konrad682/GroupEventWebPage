@@ -19,7 +19,9 @@ var eventListPageFootball_1 = require("./eventListPageFootball");
 var formEvent_1 = require("./formEvent");
 var login_1 = require("./login");
 var register_1 = require("./register");
+var formInfromation_1 = require("./formInfromation");
 var _components_1 = require("./_components");
+var editForm_1 = require("./editForm");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -39,6 +41,8 @@ var AppModule = /** @class */ (function () {
                 _components_1.AlertComponent,
                 homePage_1.HomePageComponent,
                 formEvent_1.FormEventComponent,
+                formInfromation_1.FormInformationComponent,
+                editForm_1.EditFormComponent,
                 eventListPageFootball_1.EventListPageFootballComponent
             ],
             providers: [

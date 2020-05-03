@@ -57,16 +57,16 @@ namespace GruopEventPage.Controllers
 			return Ok(model);
 		}
 
-		[HttpGet("{id}")]
-		public IActionResult GetFormById(int id)
+		[HttpGet("{kindEvent}/{id}")]
+		public IActionResult GetFormById(int id, string kindEvent)
 		{
-			var formEvent = _formEventService.GetFormById(id);
-			var model = _mapper.Map<EventFormModel>(formEvent);
+			var formEvent = _formEventService.GetFormById(id, kindEvent);
+			var model = _mapper.Map<EventFormModelFull>(formEvent);
 			return Ok(model);
 		}
 
-		[HttpPut("{id}")]
-		public IActionResult UpdateForm(int id, [FromBody]UpdateModel model)
+		[HttpPut("{kindEvent}/{id}")]
+		public IActionResult UpdateForm(int id, string kindEvent, [FromBody]UpdateFormModel model)
 		{
 			// map model to entity and set id
 			var formEvent = _mapper.Map<EventForm>(model);
@@ -75,7 +75,7 @@ namespace GruopEventPage.Controllers
 			try
 			{
 				// update user 
-				_formEventService.UpdateFormEvent(formEvent);
+				_formEventService.UpdateFormEvent(formEvent, kindEvent);
 				return Ok();
 			}
 			catch (AppException ex)
@@ -85,10 +85,10 @@ namespace GruopEventPage.Controllers
 			}
 		}
 
-		[HttpDelete("{id}")]
-		public IActionResult DeleteForm(int id)
+		[HttpDelete("{kindEvent}/{id}")]
+		public IActionResult DeleteForm(int id, string kindEvent)
 		{
-			_formEventService.DeleteFormEvent(id);
+			_formEventService.DeleteFormEvent(id, kindEvent);
 			return Ok();
 		}
 

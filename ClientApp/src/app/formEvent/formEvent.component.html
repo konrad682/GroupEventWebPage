@@ -36,16 +36,16 @@
         <label for="placeEvent">Miejsce wydarzenia</label>
         <input type="text" formControlName="placeEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.placeEvent.errors }" />
         <div *ngIf="submitted && f.placeEvent.errors" class="invalid-feedback">
-            <div *ngIf="f.placeEvent.errors.required">Pleace event is required</div>
+            <div *ngIf="f.placeEvent.errors.required">Place event is required</div>
         </div>
     </div>
         </div>
         <div class="col">
             <div class="form-group">
                 <label for="numberPlacesEvent">Ilość miejsc</label>
-                <input type="text" formControlName="numberPlacesEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.numberPlacesEvent.errors }" />
+                <input type="number" formControlName="numberPlacesEvent" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.numberPlacesEvent.errors }" />
                 <div *ngIf="submitted && f.numberPlacesEvent.errors" class="invalid-feedback">
-                    <div *ngIf="f.numberPlacesEvent.errors.required">Pleace event is required</div>
+                    <div *ngIf="f.numberPlacesEvent.errors.required">It has to be number</div>
                 </div>
             </div>
                 </div>

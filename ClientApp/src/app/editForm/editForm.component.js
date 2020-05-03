@@ -15,8 +15,8 @@ var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var operators_1 = require("rxjs/operators");
 var router_1 = require("@angular/router");
-var FormEventComponent = /** @class */ (function () {
-    function FormEventComponent(formBuilder, route, authenticationService, formEventService, alertService, _location) {
+var EditFormComponent = /** @class */ (function () {
+    function EditFormComponent(formBuilder, route, authenticationService, formEventService, alertService, _location) {
         this.formBuilder = formBuilder;
         this.route = route;
         this.authenticationService = authenticationService;
@@ -26,11 +26,13 @@ var FormEventComponent = /** @class */ (function () {
         this.loading = false;
         this.submitted = false;
     }
-    FormEventComponent.prototype.ngOnInit = function () {
+    EditFormComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             _this.kindEvent = params['kindEvent'];
+            _this.eventID = +params['id'];
         });
+        this.loadFormEventByID();
         this.eventForm = this.formBuilder.group({
             nameEvent: ['', forms_1.Validators.required],
             dateEvent: ['', forms_1.Validators.required],
@@ -38,19 +40,34 @@ var FormEventComponent = /** @class */ (function () {
             descEvent: ['', forms_1.Validators.required],
             timeEvent: ['', forms_1.Validators.required],
             numberPlacesEvent: ['', forms_1.Validators.required],
-            kindEvent: [this.kindEvent],
-            organizer: [this.authenticationService.currentUserValue.username]
         });
+        //  this.eventForm.setValue({
+        //     nameEvent: this.form.nameEvent,
+        //     dateEvent: this.form.dateEvent,
+        //     placeEvent: this.form.placeEvent,
+        //     descEvent: this.form.descEvent,
+        //     timeEvent: this.form.timeEvent
+        //   });
+        setTimeout(function () {
+            _this.eventForm.setValue({
+                nameEvent: _this.form.nameEvent,
+                dateEvent: _this.form.dateEvent,
+                placeEvent: _this.form.placeEvent,
+                descEvent: _this.form.descEvent,
+                timeEvent: _this.form.timeEvent,
+                numberPlacesEvent: _this.form.numberPlacesEvent
+            });
+        }, 500);
     };
-    FormEventComponent.prototype.ngOnDestroy = function () {
+    EditFormComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
-    Object.defineProperty(FormEventComponent.prototype, "f", {
+    Object.defineProperty(EditFormComponent.prototype, "f", {
         get: function () { return this.eventForm.controls; },
         enumerable: true,
         configurable: true
     });
-    FormEventComponent.prototype.onSubmit = function () {
+    EditFormComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
         // reset alerts on submit
@@ -60,7 +77,7 @@ var FormEventComponent = /** @class */ (function () {
             return;
         }
         this.loading = true;
-        this.formEventService.createForm(this.eventForm.value)
+        this.formEventService.updateForm(this.eventID, this.kindEvent, this.eventForm.value)
             .pipe(operators_1.first())
             .subscribe(function (data) {
             _this._location.back();
@@ -69,18 +86,23 @@ var FormEventComponent = /** @class */ (function () {
             _this.loading = false;
         });
     };
-    FormEventComponent.prototype.cancel = function () {
+    EditFormComponent.prototype.loadFormEventByID = function () {
+        var _this = this;
+        this.formEventService.getFormEventByID(this.eventID, this.kindEvent)
+            .subscribe(function (data) { return _this.form = data; });
+    };
+    EditFormComponent.prototype.cancel = function () {
         this._location.back();
     };
-    FormEventComponent = __decorate([
-        core_1.Component({ templateUrl: 'formEvent.component.html' }),
+    EditFormComponent = __decorate([
+        core_1.Component({ templateUrl: 'editForm.component.html' }),
         __metadata("design:paramtypes", [forms_1.FormBuilder,
             router_1.ActivatedRoute,
             _services_1.AuthenticationService,
             _services_1.FormEventService,
             _services_1.AlertService,
             common_1.Location])
-    ], FormEventComponent);
-    return FormEventComponent;
+    ], EditFormComponent);
+    return EditFormComponent;
 }());
-exports.FormEventComponent = FormEventComponent;
+exports.EditFormComponent = EditFormComponent;

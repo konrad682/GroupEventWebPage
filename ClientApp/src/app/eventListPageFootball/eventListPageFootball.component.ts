@@ -31,4 +31,8 @@ export class EventListPageFootballComponent implements OnInit {
     navigateToFormEventPage() {
         this.router.navigate(['/formEvent', 'football']);
     }
+
+    formInformation(id: number){
+        this.router.navigate(['/formInfomation', 'football', id]);
+    }
 }

@@ -12,7 +12,9 @@ import { EventListPageFootballComponent } from './eventListPageFootball';
 import { FormEventComponent } from './formEvent';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
+import { FormInformationComponent } from './formInfromation';
 import { AlertComponent } from './_components';
+import { EditFormComponent } from './editForm';
 
 @NgModule({
     imports: [
@@ -29,6 +31,8 @@ import { AlertComponent } from './_components';
         AlertComponent,
         HomePageComponent,
         FormEventComponent,
+        FormInformationComponent,
+        EditFormComponent,
         EventListPageFootballComponent
     ],
     providers: [

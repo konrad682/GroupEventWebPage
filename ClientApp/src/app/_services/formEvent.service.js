@@ -21,8 +21,14 @@ var FormEventService = /** @class */ (function () {
     FormEventService.prototype.createForm = function (form) {
         return this.http.post(config.apiUrl + "/formEvent/createEventForm", form);
     };
-    FormEventService.prototype.deleteForm = function (id) {
-        return this.http.delete(config.apiUrl + "/formEvent/" + id);
+    FormEventService.prototype.updateForm = function (id, kindEvent, form) {
+        return this.http.put(config.apiUrl + "/formEvent/" + kindEvent + "/" + id, form);
+    };
+    FormEventService.prototype.deleteForm = function (id, kindEvent) {
+        return this.http.delete(config.apiUrl + "/formEvent/" + kindEvent + "/" + id);
+    };
+    FormEventService.prototype.getFormEventByID = function (id, kindEvent) {
+        return this.http.get(config.apiUrl + "/formEvent/" + kindEvent + "/" + id);
     };
     FormEventService = __decorate([
         core_1.Injectable({ providedIn: 'root' }),
