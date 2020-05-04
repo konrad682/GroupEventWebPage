@@ -10,20 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var operators_1 = require("rxjs/operators");
 var _services_1 = require("../_services");
+var router_1 = require("@angular/router");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(authenticationService, userService) {
+    function HomeComponent(authenticationService, formEventService, router) {
         this.authenticationService = authenticationService;
-        this.userService = userService;
-        this.users = [];
+        this.formEventService = formEventService;
+        this.router = router;
+        this.formsEvent = [];
         this.currentUser = this.authenticationService.currentUserValue;
     }
     HomeComponent.prototype.ngOnInit = function () {
+        this.loadAllFormsEventForUser();
+    };
+    HomeComponent.prototype.loadAllFormsEventForUser = function () {
+        var _this = this;
+        this.formEventService.getAllFormsEventForUser(this.currentUser.id)
+            .pipe(operators_1.first())
+            .subscribe(function (formsEvent) { return _this.formsEvent = formsEvent; });
+        console.log(this.formsEvent);
     };
     HomeComponent = __decorate([
         core_1.Component({ templateUrl: 'home.component.html' }),
         __metadata("design:paramtypes", [_services_1.AuthenticationService,
-            _services_1.UserService])
+            _services_1.FormEventService,
+            router_1.Router])
     ], HomeComponent);
     return HomeComponent;
 }());

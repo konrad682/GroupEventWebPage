@@ -13,6 +13,6 @@ namespace GruopEventPage.Entities
 		public byte[] PasswordHash { get; set; }
 		public byte[] PasswordSalt { get; set; }
 		public string Role { get; set; }
-
+		public IList<UserFootballEvent> UserFootballEvent { get; set; }
 	}
 }

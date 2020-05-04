@@ -44,10 +44,42 @@ namespace GruopEventPage.Migrations.SqliteMigrations
                 {
                     table.PrimaryKey("PK_Users", x => x.UserID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "UserFootballEvent",
+                columns: table => new
+                {
+                    UserID = table.Column<int>(nullable: false),
+                    EventID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFootballEvent", x => new { x.UserID, x.EventID });
+                    table.ForeignKey(
+                        name: "FK_UserFootballEvent_EventFormFootball_EventID",
+                        column: x => x.EventID,
+                        principalTable: "EventFormFootball",
+                        principalColumn: "EventID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFootballEvent_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFootballEvent_EventID",
+                table: "UserFootballEvent",
+                column: "EventID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "UserFootballEvent");
+
             migrationBuilder.DropTable(
                 name: "EventFormFootball");
 

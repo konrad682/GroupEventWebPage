@@ -30,6 +30,12 @@ var FormEventService = /** @class */ (function () {
     FormEventService.prototype.getFormEventByID = function (id, kindEvent) {
         return this.http.get(config.apiUrl + "/formEvent/" + kindEvent + "/" + id);
     };
+    FormEventService.prototype.assignUserAndEventForm = function (userID, eventID, kindEvent) {
+        return this.http.get(config.apiUrl + "/formEvent/" + kindEvent + "/" + eventID + "/" + userID);
+    };
+    FormEventService.prototype.getAllFormsEventForUser = function (userID) {
+        return this.http.get(config.apiUrl + "/formEvent/" + userID);
+    };
     FormEventService = __decorate([
         core_1.Injectable({ providedIn: 'root' }),
         __metadata("design:paramtypes", [http_1.HttpClient])

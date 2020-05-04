@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GruopEventPage.Entities;
 using GruopEventPage.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace GruopEventPage.Services
 {

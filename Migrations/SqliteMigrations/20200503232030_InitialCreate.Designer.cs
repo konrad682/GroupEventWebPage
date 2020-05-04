@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GruopEventPage.Migrations.SqliteMigrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200503122529_InitialCreate")]
+    [Migration("20200503232030_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,36 @@ namespace GruopEventPage.Migrations.SqliteMigrations
                     b.HasKey("UserID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("GruopEventPage.Entities.UserFootballEvent", b =>
+                {
+                    b.Property<int>("UserID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EventID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserID", "EventID");
+
+                    b.HasIndex("EventID");
+
+                    b.ToTable("UserFootballEvent");
+                });
+
+            modelBuilder.Entity("GruopEventPage.Entities.UserFootballEvent", b =>
+                {
+                    b.HasOne("GruopEventPage.Entities.EventForm", "EventForm")
+                        .WithMany("UserFootballEvent")
+                        .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GruopEventPage.Entities.User", "User")
+                        .WithMany("UserFootballEvent")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

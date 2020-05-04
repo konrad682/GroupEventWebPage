@@ -49,6 +49,19 @@ namespace GruopEventPage.Controllers
 			}
 		}
 
+		[HttpGet("{kindEvent}/{idEvent}/{idUser}")]
+		public IActionResult AssignUserAndEventForm(int idEvent, int idUser, string kindEvent)
+		{
+			try
+			{
+				_formEventService.AssignUserAndEventForm(idEvent, idUser, kindEvent);
+				return Ok();
+			}catch( AppException ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+
 		[HttpGet]
 		public IActionResult GetFormsAll()
 		{
@@ -92,5 +105,12 @@ namespace GruopEventPage.Controllers
 			return Ok();
 		}
 
+		[HttpGet("{userID}")]
+		public IActionResult getAllFormsEventForUser(int userID)
+		{
+			var formsEvent = _formEventService.GetAllFormsEventForUser(userID);
+			var model = _mapper.Map<IList<EventFormModelFull>>(formsEvent);
+			return Ok(model);
+		}
 	}
 }

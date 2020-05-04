@@ -18,5 +18,6 @@ namespace GruopEventPage.Entities
 		public string TimeEvent { get; set; }
 		public int NumberPlacesEvent { get; set; }
 		public int NumbersOfCurrentParticipants { get; set; }
+		public IList<UserFootballEvent> UserFootballEvent { get; set; }
 	}
 }

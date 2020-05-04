@@ -24,4 +24,12 @@ export class FormEventService {
     getFormEventByID(id, kindEvent) {
         return this.http.get(`${config.apiUrl}/formEvent/${kindEvent}/${id}`);
     }
+
+    assignUserAndEventForm(userID, eventID, kindEvent) {
+        return this.http.get(`${config.apiUrl}/formEvent/${kindEvent}/${eventID}/${userID}`);
+    }
+
+    getAllFormsEventForUser(userID) {
+        return this.http.get<any[]>(`${config.apiUrl}/formEvent/${userID}`);
+    }
 }

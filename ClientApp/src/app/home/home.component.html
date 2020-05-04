@@ -1,24 +1,50 @@
-<div class="container">
-    <h1>Hi {{currentUser.firstName}}!</h1>
-    <div class="row mb-3"></div>
-    <h3>Wybierz wydarzenie do którego chcesz dołączyć:</h3>
-    <div class="row mb-5"></div>
-    <div class="row">
-        <div class="col-sm-6">
-            <img routerLink="/football" src="../../assets/images/football.jpg" class="rounded" alt="football" width="350" height="200">
+<div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-6 border-right border-primary">
+            <div class="row mb-3">
+                <h1>Hi {{currentUser.firstName}}!</h1> 
+            </div>
+            <div class="row mb-3">
+                <h3>Wybierz wydarzenie do którego chcesz dołączyć:</h3>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <img routerLink="/football" src="../../assets/images/football.jpg" class="rounded center-block" alt="football" width="350" height="200">
+                </div>
+                <div class="col-sm-6">
+                    <img src="../../assets/images/volleyball.jpg" class="rounded" alt="volleyball" width="350" height="200">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <img src="../../assets/images/basketball.jpg" class="rounded" alt="basketball" width="350" height="200">
+                </div>
+                <div class="col-sm-6">
+                    <img src="../../assets/images/concert.jpg" class="rounded" alt="concert" width="350" height="200">
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6">
-            <img src="../../assets/images/volleyball.jpg" class="rounded" alt="volleyball" width="350" height="200">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                        <h3>Eventy w których uczestniczysz:</h3>
+                </div>
+            </div>
+                <div *ngFor="let form of formsEvent">
+                    <div class="card border-primary mb-3" style="max-width: 500px; max-height: 200px; min-width: 300px;">
+                            <h5 class="card-header bg-transparent border-primary">Nazwa: {{form.nameEvent}}</h5>
+                            <p class=" card-body card-text ">Miejsce i data: {{form.placeEvent}} - {{form.dateEvent}}</p>
+                            <div class="card-footer bg-transparent border-primary">
+                                <div class="row">
+                                <div class="col-sm-8">
+                                    <!-- <a (click)="formInformation(form.eventID)" class="btn btn-primary">Informacje</a> -->
+                                </div>
+                                <div class="col-sm-4">
+                                    <p class="card-text ">Ilość miejsc: {{form.numbersOfCurrentParticipants}}/{{form.numberPlacesEvent}}</p>
+                                </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
         </div>
     </div>
-    <div class="row mb-5"></div>
-    <div class="row">
-        <div class="col-sm-6">
-            <img src="../../assets/images/basketball.jpg" class="rounded" alt="basketball" width="350" height="200">
-        </div>
-        <div class="col-sm-6">
-            <img src="../../assets/images/concert.jpg" class="rounded" alt="concert" width="350" height="200">
-        </div>
-    </div>
-    <div class="row mb-5"></div>
-</div>

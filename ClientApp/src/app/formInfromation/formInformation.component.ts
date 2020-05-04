@@ -57,6 +57,11 @@ export class FormInformationComponent implements OnInit {
         500);
       }
 
+    joinToEvent(){
+        this.formEventService.assignUserAndEventForm(this.currentUser.id, this.eventID, this.kindEvent)
+        .subscribe(() => this);
+    }
+
     editForm(){
         this.router.navigate(['/editForm', this.kindEvent, this.eventID]);
     }

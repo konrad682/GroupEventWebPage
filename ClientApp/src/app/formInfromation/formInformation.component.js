@@ -50,6 +50,11 @@ var FormInformationComponent = /** @class */ (function () {
             _this._location.back();
         }, 500);
     };
+    FormInformationComponent.prototype.joinToEvent = function () {
+        var _this = this;
+        this.formEventService.assignUserAndEventForm(this.currentUser.id, this.eventID, this.kindEvent)
+            .subscribe(function () { return _this; });
+    };
     FormInformationComponent.prototype.editForm = function () {
         this.router.navigate(['/editForm', this.kindEvent, this.eventID]);
     };
