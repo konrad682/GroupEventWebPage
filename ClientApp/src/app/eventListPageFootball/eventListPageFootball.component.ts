@@ -21,7 +21,7 @@ export class EventListPageFootballComponent implements OnInit {
     }
 
     private loadAllFormsEvent() {
-        this.formEventService.getAllForms()
+        this.formEventService.getAllForms("football")
             .pipe(first())
             .subscribe(formsEvent => this.formsEvent = formsEvent);
 

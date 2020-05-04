@@ -28,6 +28,9 @@ namespace GruopEventPage.Migrations.SqliteMigrations
                     b.Property<string>("DescEvent")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("KindEvent")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("NameEvent")
                         .HasColumnType("TEXT");
 

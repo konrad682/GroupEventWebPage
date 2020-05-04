@@ -18,6 +18,7 @@ namespace GruopEventPage.Migrations.SqliteMigrations
                     PlaceEvent = table.Column<string>(nullable: true),
                     DescEvent = table.Column<string>(nullable: true),
                     Organizer = table.Column<string>(nullable: true),
+                    KindEvent = table.Column<string>(nullable: true),
                     TimeEvent = table.Column<string>(nullable: true),
                     NumberPlacesEvent = table.Column<int>(nullable: false),
                     NumbersOfCurrentParticipants = table.Column<int>(nullable: false)

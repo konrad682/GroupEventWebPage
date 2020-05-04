@@ -6,7 +6,7 @@ namespace GruopEventPage.Services
 {
 	public interface IFormEventService
 	{
-		IEnumerable<EventForm> GetAllFormsEvent();
+		IEnumerable<EventForm> GetAllFormsEvent(string kindEvent);
 		EventForm GetFormById(int id, string kindEvent);
 		EventForm CreateFormEvent(EventForm eventForm, string kindEvent);
 		void UpdateFormEvent(EventForm EventForm, string kindEvent);

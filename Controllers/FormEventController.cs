@@ -45,7 +45,7 @@ namespace GruopEventPage.Controllers
 			}
 			catch (AppException ex)
 			{
-				return BadRequest(new { meessage = ex.Message });
+				return BadRequest(new { meessage = ex.Message.ToString() });
 			}
 		}
 
@@ -56,16 +56,17 @@ namespace GruopEventPage.Controllers
 			{
 				_formEventService.AssignUserAndEventForm(idEvent, idUser, kindEvent);
 				return Ok();
-			}catch( AppException ex)
+			}
+			catch( AppException ex)
 			{
-				return BadRequest(new { message = ex.Message });
+				return BadRequest(new { message = ex.Message.ToString() });
 			}
 		}
 
-		[HttpGet]
-		public IActionResult GetFormsAll()
+		[HttpGet("getForms/{kindEvent}")]
+		public IActionResult GetFormsAll(string kindEvent)
 		{
-			var formsEvent = _formEventService.GetAllFormsEvent();
+			var formsEvent = _formEventService.GetAllFormsEvent(kindEvent);
 			var model = _mapper.Map<IList<EventFormModelFull>>(formsEvent);
 			return Ok(model);
 		}
@@ -94,7 +95,7 @@ namespace GruopEventPage.Controllers
 			catch (AppException ex)
 			{
 				// return error message if there was an exception
-				return BadRequest(new { message = ex.Message });
+				return BadRequest(new { message = ex.Message.ToString() });
 			}
 		}
 

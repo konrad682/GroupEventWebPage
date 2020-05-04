@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
 import { HomePageComponent } from './homePage';
 import { EventListPageFootballComponent } from './eventListPageFootball';
+import { EventListPageConcertComponent } from './eventListPageConcert';
 import { FormEventComponent } from './formEvent';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
@@ -32,6 +33,7 @@ import { EditFormComponent } from './editForm';
         HomePageComponent,
         FormEventComponent,
         FormInformationComponent,
+        EventListPageConcertComponent,
         EditFormComponent,
         EventListPageFootballComponent
     ],

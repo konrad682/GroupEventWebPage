@@ -10,36 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var operators_1 = require("rxjs/operators");
 var _services_1 = require("../_services");
+var operators_1 = require("rxjs/operators");
 var router_1 = require("@angular/router");
-var HomeComponent = /** @class */ (function () {
-    function HomeComponent(authenticationService, formEventService, router) {
+var EventListPageConcertComponent = /** @class */ (function () {
+    function EventListPageConcertComponent(authenticationService, formEventService, router) {
         this.authenticationService = authenticationService;
         this.formEventService = formEventService;
         this.router = router;
         this.formsEvent = [];
         this.currentUser = this.authenticationService.currentUserValue;
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        this.loadAllFormsEventForUser();
+    EventListPageConcertComponent.prototype.ngOnInit = function () {
+        this.loadAllFormsEvent();
     };
-    HomeComponent.prototype.loadAllFormsEventForUser = function () {
+    EventListPageConcertComponent.prototype.loadAllFormsEvent = function () {
         var _this = this;
-        this.formEventService.getAllFormsEventForUser(this.currentUser.id)
+        this.formEventService.getAllForms("concert")
             .pipe(operators_1.first())
             .subscribe(function (formsEvent) { return _this.formsEvent = formsEvent; });
         console.log(this.formsEvent);
     };
-    HomeComponent.prototype.formInformation = function (id, kindEvent) {
-        this.router.navigate(['/formInfomation', kindEvent, id]);
+    EventListPageConcertComponent.prototype.navigateToFormEventPage = function () {
+        this.router.navigate(['/formEvent', 'concert']);
     };
-    HomeComponent = __decorate([
-        core_1.Component({ templateUrl: 'home.component.html' }),
+    EventListPageConcertComponent.prototype.formInformation = function (id) {
+        this.router.navigate(['/formInfomation', 'concert', id]);
+    };
+    EventListPageConcertComponent = __decorate([
+        core_1.Component({ templateUrl: 'eventListPageConcert.component.html' }),
         __metadata("design:paramtypes", [_services_1.AuthenticationService,
             _services_1.FormEventService,
             router_1.Router])
-    ], HomeComponent);
-    return HomeComponent;
+    ], EventListPageConcertComponent);
+    return EventListPageConcertComponent;
 }());
-exports.HomeComponent = HomeComponent;
+exports.EventListPageConcertComponent = EventListPageConcertComponent;

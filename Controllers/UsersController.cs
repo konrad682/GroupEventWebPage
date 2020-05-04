@@ -84,7 +84,7 @@ namespace GruopEventPage.Controllers
 			}
 			catch(AppException ex)
 			{
-				return BadRequest(new { meessage = ex.Message });
+				return BadRequest(new { message = ex.Message.ToString() });
 			}
 		}
 
@@ -120,7 +120,7 @@ namespace GruopEventPage.Controllers
 			catch (AppException ex)
 			{
 				// return error message if there was an exception
-				return BadRequest(new { message = ex.Message });
+				return BadRequest(new { message = ex.Message.ToString() });
 			}
 		}
 

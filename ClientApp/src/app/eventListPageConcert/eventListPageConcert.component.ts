@@ -1,34 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { AuthenticationService, FormEventService } from '../_services';
+import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-@Component({ templateUrl: 'home.component.html' })
-export class HomeComponent implements OnInit {
+@Component({ templateUrl: 'eventListPageConcert.component.html' })
+export class EventListPageConcertComponent implements OnInit {
     currentUser: any;
     formsEvent = [];
 
     constructor(
         private authenticationService: AuthenticationService,
         private formEventService: FormEventService,
-        private router: Router
+        private router: Router,
     ) {
         this.currentUser = this.authenticationService.currentUserValue;
     }
 
     ngOnInit() {
-        this.loadAllFormsEventForUser();
+        this.loadAllFormsEvent();
     }
 
-    private loadAllFormsEventForUser() {
-        this.formEventService.getAllFormsEventForUser(this.currentUser.id)
+    private loadAllFormsEvent() {
+        this.formEventService.getAllForms("concert")
             .pipe(first())
             .subscribe(formsEvent => this.formsEvent = formsEvent);
 
         console.log(this.formsEvent);
     }
 
-    formInformation(id: number, kindEvent: string){
-        this.router.navigate(['/formInfomation', kindEvent, id]);
+    navigateToFormEventPage() {
+        this.router.navigate(['/formEvent', 'concert']);
+    }
+
+    formInformation(id: number){
+        this.router.navigate(['/formInfomation', 'concert', id]);
     }
 }

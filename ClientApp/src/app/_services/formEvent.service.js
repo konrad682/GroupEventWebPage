@@ -15,8 +15,8 @@ var FormEventService = /** @class */ (function () {
     function FormEventService(http) {
         this.http = http;
     }
-    FormEventService.prototype.getAllForms = function () {
-        return this.http.get(config.apiUrl + "/formEvent");
+    FormEventService.prototype.getAllForms = function (kindEvent) {
+        return this.http.get(config.apiUrl + "/formEvent/getForms/" + kindEvent);
     };
     FormEventService.prototype.createForm = function (form) {
         return this.http.post(config.apiUrl + "/formEvent/createEventForm", form);

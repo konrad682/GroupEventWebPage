@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GruopEventPage.Migrations.SqliteMigrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200503232030_InitialCreate")]
+    [Migration("20200504120344_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace GruopEventPage.Migrations.SqliteMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DescEvent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("KindEvent")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NameEvent")

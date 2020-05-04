@@ -59,7 +59,10 @@ export class FormInformationComponent implements OnInit {
 
     joinToEvent(){
         this.formEventService.assignUserAndEventForm(this.currentUser.id, this.eventID, this.kindEvent)
-        .subscribe(() => this);
+        .subscribe(() => {},
+        error => {
+            this.alertService.error(error);
+        });
     }
 
     editForm(){

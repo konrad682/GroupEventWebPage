@@ -20,7 +20,7 @@
                     <img src="../../assets/images/basketball.jpg" class="rounded" alt="basketball" width="350" height="200">
                 </div>
                 <div class="col-sm-6">
-                    <img src="../../assets/images/concert.jpg" class="rounded" alt="concert" width="350" height="200">
+                    <img routerLink="/concert" src="../../assets/images/concert.jpg" class="rounded" alt="concert" width="350" height="200">
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                             <div class="card-footer bg-transparent border-primary">
                                 <div class="row">
                                 <div class="col-sm-8">
-                                    <!-- <a (click)="formInformation(form.eventID)" class="btn btn-primary">Informacje</a> -->
+                                    <a (click)="formInformation(form.eventID, form.kindEvent)" class="btn btn-primary">Informacje</a>
                                 </div>
                                 <div class="col-sm-4">
                                     <p class="card-text ">Ilość miejsc: {{form.numbersOfCurrentParticipants}}/{{form.numberPlacesEvent}}</p>

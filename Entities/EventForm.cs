@@ -15,6 +15,7 @@ namespace GruopEventPage.Entities
 		public string PlaceEvent { get; set; }
 		public string DescEvent { get; set; }
 		public string Organizer { get; set; }
+		public string KindEvent { get; set; }
 		public string TimeEvent { get; set; }
 		public int NumberPlacesEvent { get; set; }
 		public int NumbersOfCurrentParticipants { get; set; }

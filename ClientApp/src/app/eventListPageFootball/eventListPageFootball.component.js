@@ -26,7 +26,7 @@ var EventListPageFootballComponent = /** @class */ (function () {
     };
     EventListPageFootballComponent.prototype.loadAllFormsEvent = function () {
         var _this = this;
-        this.formEventService.getAllForms()
+        this.formEventService.getAllForms("football")
             .pipe(operators_1.first())
             .subscribe(function (formsEvent) { return _this.formsEvent = formsEvent; });
         console.log(this.formsEvent);

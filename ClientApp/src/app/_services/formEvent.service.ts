@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 export class FormEventService {
     constructor(private http: HttpClient) { }
 
-    getAllForms() {
-        return this.http.get<any[]>(`${config.apiUrl}/formEvent`);
+    getAllForms(kindEvent) {
+        return this.http.get<any[]>(`${config.apiUrl}/formEvent/getForms/${kindEvent}`);
     }
 
     createForm(form) {
