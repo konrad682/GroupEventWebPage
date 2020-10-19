@@ -50,11 +50,5 @@ module.exports = {
     ],
     devServer: {
         historyApiFallback: true
-    },
-    output: {
-        path: helpers.root('dist'),
-        publicPath: '/',
-        filename: '[name].bundle.js',
-        chunkFilename: '[id].chunk.js'
     }
 }
