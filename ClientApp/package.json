@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "scripts": {
         "start": "webpack-dev-server --mode development --open"
+        "build": "webpack"
     },
     "devDependencies": {
         "@angular/common": "^8.2.14",
