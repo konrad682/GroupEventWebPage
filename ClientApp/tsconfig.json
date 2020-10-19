@@ -1,11 +1,7 @@
 {
-  "compilerOptions": {
-   "target": "esnext",
-	"module": "commonjs",
-	"declaration": true,
-	"outDir": "lib",
-	"strict": true,
-	"allowSyntheticDefaultImports": true,
-	"esModuleInterop": true
-  }
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "ES5"
+    }
 }
