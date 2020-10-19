@@ -3,7 +3,7 @@ name: .NET Core CI
 on:
   push:
     branches: 
-      - main
+      - master
 
 env:
   AZURE_WEBAPP_NAME: GroupEventPage    # set this to your application's name
