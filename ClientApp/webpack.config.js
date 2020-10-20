@@ -38,7 +38,7 @@ module.exports = {
         new webpack.DefinePlugin({
             // global app config object
             config: JSON.stringify({
-                apiUrl: 'https://groupeventpage.azurewebsites.net'
+                apiUrl: 'https://groupeventpagev2.azurewebsites.net'
             })
         }),
         new CopyPlugin([
