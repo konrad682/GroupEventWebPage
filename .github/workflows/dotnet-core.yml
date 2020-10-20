@@ -8,7 +8,6 @@ on:
 env:
   AZURE_WEBAPP_NAME: GroupEventPagev2    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'   # set this to the path to your web app project, defaults to the repository root
-  AZURE_WEBAPP_PACKAGE_ANGULAR_PATH: './ClientApp/dist' 
   DOTNET_VERSION: '3.1.401'           # set this to the dot net version to use
 
 jobs:
@@ -33,21 +32,10 @@ jobs:
           dotnet publish -c Release -o './ClientApp/dist' 
           ls
           
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v1
-        with:
-         node-version: ${{ env.NODE_VERSION }}
-      - name: npm install and build
-        run: |
-         cd ./ClientApp
-         ls
-         npm install
-         npm run build
-          
       # Deploy to Azure Web apps
       - name: 'Run Azure webapp deploy action using publish profile credentials'
         uses: azure/webapps-deploy@v2
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_ANGULAR_PATH }}/myapp'
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
