@@ -15,7 +15,12 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                use: ['html-loader']
+                use: [ {
+                 loader: 'html-loader',
+                 options: {
+                    minimize: false
+                 }
+                }],
             },
             {
                 test: /\.(jpe?g|png|gif)$/,
